@@ -1,4 +1,4 @@
-# GodPotato-Agressor-Script
+# GodPotato-Aggressor-Script
 
 GodPotato is written by BeichenDream and can be found at https://github.com/BeichenDream/GodPotato. 
 
